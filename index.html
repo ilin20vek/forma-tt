@@ -3,319 +3,491 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<!-- Прототип лендинга агентства «Форма.ТТ», задача 1611, 20.11.2026. Что откуда - README.md рядом. Не боевой сайт. -->
-<title>Форма.ТТ - если тебя нет в сети, тебя нет</title>
-<meta name="description" content="Пять способов быть в соцсетях: монтаж из вашей папки, рилсы из длинных роликов, съёмка на студии, мультфильм про ваше дело, сопровождение под ключ.">
+<title>Форма.ТТ - ролики для соцсетей</title>
+<meta name="description" content="Пять способов быть в соцсетях: монтаж из вашей папки, рилсы из длинных роликов, съёмка на студии, мультфильмы, PR под ключ.">
+<meta name="robots" content="noindex">
 <style>
 @font-face{font-family:'Sofia Sans';src:url(fonts/sofia-sans-400.woff2) format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:'Sofia Sans';src:url(fonts/sofia-sans-700.woff2) format('woff2');font-weight:700;font-display:swap}
 @font-face{font-family:'SSEC';src:url(fonts/sofia-sans-extra-condensed-800.woff2) format('woff2');font-weight:800;font-display:swap}
-/* Цвета - временные, из заготовки КП (tools/kp_shablon). Бренда «Форма.ТТ» ещё нет. */
-:root{--fon:#0f1115;--tekst:#f2efe9;--soft:#b9b4ab;--akcent:#e2b45a;--plashka:#1a1d24;--liniya:#2a2e37}
+@font-face{font-family:'OST';src:url(fonts/old-standard-tt-italic.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
+
+/* светлая бумага; акцент: --ak для крупного и знаков, --akt для мелкого текста (контраст 5,2:1 на фоне) */
+:root{--bg:#F5F2EC;--tmn:#ECE7DF;--pl:#FFFFFF;--li:#DAD4CA;--tx:#151515;--tx2:#34322E;--mut:#615E58;--ak:#E8590C;--akt:#B53D0B;--hd:'SSEC','Arial Narrow',sans-serif;--sr:'OST',Georgia,serif}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--fon);color:var(--tekst);font:400 19px/1.5 'Sofia Sans',system-ui,sans-serif}
-a{color:inherit}
-.in{max-width:1120px;margin:0 auto;padding:0 24px}
-section{padding:72px 0;border-top:1px solid var(--liniya)}
-h1,h2,h3{font-family:SSEC,'Sofia Sans',sans-serif;font-weight:800;line-height:1.02;margin:0 0 20px}
-h1{font-size:76px} h2{font-size:50px} h3{font-size:26px;margin-bottom:8px}
-p{margin:0 0 16px;max-width:38em}
-.akc{color:var(--akcent)}
-.nom{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--akcent);margin:0 0 12px;font-weight:700}
-.pod{font-size:16px;color:var(--soft)}
+html{background:var(--bg);color:var(--tx);-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;font:400 18px/1.55 'Sofia Sans',system-ui,sans-serif;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--akt)}
+p{margin:0 0 1em}
+h1,h2,h3,h4{margin:0}
 .nw{white-space:nowrap}
+.w{max-width:1200px;margin:0 auto;padding:0 24px}
 
-/* Шапка: имя агентства словом (знака нет) и выход на связь */
-.shapka{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
-.imya{font-family:SSEC,sans-serif;font-weight:800;font-size:30px;letter-spacing:.01em;text-decoration:none}
-.btn{display:inline-block;background:var(--akcent);color:#15120b;font-weight:700;font-size:18px;text-decoration:none;padding:14px 24px;border-radius:12px}
-.btn.mal{font-size:16px;padding:10px 16px}
-.btn.kont{background:transparent;color:var(--tekst);box-shadow:inset 0 0 0 2px var(--liniya)}
+/* шапка */
+.shapka{position:sticky;top:0;z-index:20;background:rgba(245,242,236,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--li)}
+.shapka .w{display:flex;align-items:center;gap:28px;height:60px}
+.marka{color:var(--tx);text-decoration:none;font:800 28px/1 var(--hd);letter-spacing:.01em;white-space:nowrap}
+.marka i{font-style:normal;color:var(--ak)}
+.menu{display:flex;gap:4px;margin-left:auto}
+.menu a{color:var(--tx2);text-decoration:none;font:700 15px/1 'Sofia Sans';padding:9px 12px;border-radius:999px;white-space:nowrap}
+.menu a:hover{background:rgba(232,89,12,.12);color:var(--tx)}
+.menu a.sv{background:var(--akt);color:#fff}
 
-/* Первый экран: слева мысль, справа три готовых ролика - сразу видно, что мы делаем */
-.e0{border-top:0;padding:24px 0 72px}
-.e0 .setka{display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:center}
-.e0 .lid{font-size:22px;max-width:30em}
-.e0 .knopki{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.vitrina{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.vitrina img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:14px;display:block}
-.vitrina img:nth-child(2){transform:translateY(-28px)}
+/* первый экран */
+.afisha{min-height:calc(100svh - 60px);display:flex;align-items:center;border-bottom:1px solid var(--li)}
+.afisha>.w{width:100%;display:grid;grid-template-columns:1.08fr 1fr;gap:clamp(28px,4vw,56px);align-items:center;padding-top:48px;padding-bottom:48px}
+.afisha h1{font:800 clamp(58px,7.6vw,104px)/.92 var(--hd);letter-spacing:.004em;margin:0 0 26px}
+.afisha h1 span{color:var(--ak)}
+.metka{display:block;font:700 15px/1.3 'Sofia Sans';color:var(--mut);text-transform:uppercase;letter-spacing:.12em;margin:0 0 14px}
+.titr{border-left:3px solid var(--ak);padding:2px 0 2px 16px;margin:0 0 24px}
+.titr p{margin:0;font:700 21px/1.3 'Sofia Sans';color:var(--tx)}
+.titr p+p{font-weight:400;color:var(--mut);margin-top:4px}
+.lead{font:italic 400 clamp(23px,2.2vw,28px)/1.32 var(--sr);color:var(--tx);margin:0 0 26px;max-width:26em}
+.veer{position:relative;display:grid;grid-template-columns:1fr 1.18fr 1fr;align-items:center;gap:0}
+.veer a{display:block;border-radius:14px;overflow:hidden;box-shadow:0 18px 50px rgba(40,30,20,.22);background:#222;aspect-ratio:9/16}
+.veer a img{width:100%;height:100%;object-fit:cover}
+.veer a:nth-child(1){transform:translateX(14%) rotate(-4deg) scale(.92);z-index:1}
+.veer a:nth-child(2){z-index:2}
+.veer a:nth-child(3){transform:translateX(-14%) rotate(4deg) scale(.92);z-index:1}
+.veer-pod{grid-column:1/-1;text-align:center;margin:22px 0 0;font-size:15px;color:var(--mut)}
 
-/* Пять способов: оглавление, каждая карточка ведёт к своему блоку */
-.sposoby{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:28px}
-.sposob{background:var(--plashka);border-radius:16px;padding:20px;text-decoration:none;display:flex;flex-direction:column;gap:8px;transition:background .2s}
-.sposob:hover{background:#232733}
-.sposob .n{font-family:SSEC,sans-serif;font-weight:800;font-size:40px;line-height:1;color:var(--akcent)}
-.sposob b{font-size:19px;line-height:1.2}
-.sposob span:not(.n){font-size:15px;color:var(--soft)}
-.sposob .skoro,.metka{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--liniya);color:var(--soft);padding:3px 8px;border-radius:6px;align-self:flex-start}
+/* кнопки */
+.knopki{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.b{display:inline-flex;align-items:center;gap:10px;background:var(--tx);color:#fff;border:0;border-radius:999px;padding:13px 22px;text-decoration:none;font:700 16px/1.1 'Sofia Sans';cursor:pointer;white-space:nowrap}
+.b.ak{background:var(--akt);color:#fff}
+.b.ak:hover{background:#9C3409}
+.b.kont{background:transparent;border:1.5px solid #BDB4A6;color:var(--tx)}
+.b.kont:hover{border-color:var(--ak)}
 
-/* Блок способа: что от вас - шаги - примеры */
-.fakty{display:flex;flex-wrap:wrap;gap:10px 28px;margin:4px 0 28px;font-size:17px}
-.fakty div{color:var(--soft)} .fakty b{color:var(--tekst)}
-.shagi{list-style:none;padding:0;margin:0 0 36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;counter-reset:sh}
-.shagi li{counter-increment:sh;background:var(--plashka);border-radius:14px;padding:18px 18px 20px;font-size:17px;line-height:1.35}
-.shagi li::before{content:counter(sh);display:block;font-family:SSEC,sans-serif;font-weight:800;font-size:34px;line-height:1;color:var(--akcent);margin-bottom:10px}
-.shagi li b{display:block;font-size:19px;margin-bottom:4px}
-.razvilka{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.razvilka span{font-size:14px;background:var(--liniya);border-radius:6px;padding:2px 8px}
+/* пять способов */
+.sposoby{padding:56px 0 0}
+.sposoby .w{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.sposoby a{display:block;background:var(--pl);border-radius:16px;padding:22px 20px 20px;border-top:2px solid var(--ak);text-decoration:none;color:var(--tx);box-shadow:0 1px 0 var(--li)}
+.sposoby a:hover{box-shadow:0 10px 30px rgba(40,30,20,.10)}
+.sposoby b{display:block;font:800 40px/1 var(--hd);color:var(--ak);margin-bottom:12px}
+.sposoby strong{display:block;font:700 19px/1.25 'Sofia Sans';margin-bottom:6px}
+.sposoby span{display:block;font-size:16px;line-height:1.4;color:var(--mut)}
 
-/* Ролики. Обложка у каждого, нажатие в любое место запускает (как в tools/kp_shablon). */
-.roliki{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.roliki.tri{grid-template-columns:repeat(3,1fr);max-width:840px}
-.roliki.dva{grid-template-columns:repeat(2,1fr);max-width:560px}
-.roliki figure{margin:0}
-.roliki .rol{position:relative;cursor:pointer;border-radius:16px;overflow:hidden;background:#000}
-.roliki video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}
-.roliki .play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(0,0,0,.55);pointer-events:none;transition:opacity .2s}
-.roliki .play::after{content:"";position:absolute;left:26px;top:20px;border-style:solid;border-width:12px 0 12px 19px;border-color:transparent transparent transparent #fff}
-.roliki .rol.idet .play{opacity:0}
-.roliki figcaption{font-size:15px;color:var(--soft);margin-top:10px;line-height:1.35}
-.roliki figcaption b{display:block;color:var(--tekst);font-size:17px;margin-bottom:2px}
-.zaglushka{aspect-ratio:9/16;border-radius:16px;border:2px dashed var(--liniya);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:var(--soft);font-size:16px}
+/* разделы */
+.razdel{padding:96px 0;border-top:1px solid var(--li)}
+.razdel.tmn{background:var(--tmn)}
+.sposoby+.razdel{margin-top:96px}
+.nom{display:flex;align-items:center;gap:12px;margin:0 0 18px;font:700 16px/1.2 'Sofia Sans';color:var(--akt);letter-spacing:.02em}
+.nom b{font:800 22px/1 var(--hd);color:var(--ak)}
+.nom:before{content:"";flex:none;width:28px;height:2px;background:var(--ak)}
+h2{font:800 clamp(36px,4.8vw,62px)/1.02 var(--hd);letter-spacing:.003em;max-width:21em;margin:0 0 40px}
+h3{font:800 clamp(28px,3vw,40px)/1.05 var(--hd);margin:0 0 14px}
+.tx2{color:var(--tx2)}
+.dv{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.otnas{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.otnas div{background:var(--pl);border-radius:14px;padding:16px 18px;border-top:2px solid var(--ak)}
+.razdel.tmn .otnas div{background:#F8F5F0}
+.otnas span{display:block;font:700 13px/1.3 'Sofia Sans';color:var(--mut);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+.otnas b{font:700 18px/1.3 'Sofia Sans'}
+.shagi{counter-reset:n;list-style:none;margin:0;padding:0}
+.shagi li{counter-increment:n;display:grid;grid-template-columns:44px 1fr;gap:6px;padding:15px 0;border-top:1px solid var(--li)}
+.shagi li:last-child{border-bottom:1px solid var(--li)}
+.shagi li:before{content:counter(n,decimal-leading-zero);font:800 22px/1.2 var(--hd);color:var(--ak)}
+.shagi b{display:block;font:700 18px/1.3 'Sofia Sans'}
+.shagi span{display:block;color:var(--mut);font-size:16px;line-height:1.45;margin-top:2px}
+.razvilka{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.razvilka i{font-style:normal;font:700 14px/1 'Sofia Sans';border:1.5px solid var(--ak);color:var(--akt);border-radius:999px;padding:6px 11px}
+.skoro{display:flex;align-items:center;gap:12px;margin:22px 0 0;font-size:17px;color:var(--tx2)}
+.skoro i{font-style:normal;font:700 13px/1 'Sofia Sans';letter-spacing:.12em;text-transform:uppercase;background:var(--tx);color:#fff;border-radius:999px;padding:7px 11px}
 
-/* Под ключ: примеров нет - честная плашка вместо них */
-.chestno{background:var(--plashka);border-radius:18px;padding:28px;max-width:760px}
-.chestno p:last-child{margin:0}
-.spisok{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-wrap:wrap;gap:10px}
-.spisok li{background:var(--plashka);border-radius:12px;padding:12px 18px;font-size:18px;font-weight:700}
+/* пример: кейс */
+.primer{margin-top:80px;padding-top:56px;border-top:1px solid var(--li)}
+.primer>p.tx2{max-width:40em}
+.vhod{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin:34px 0 40px}
+.vhod article{background:var(--pl);border-radius:16px;padding:24px 26px 22px;border-top:2px solid var(--li)}
+.vhod article.vy{border-top-color:var(--ak)}
+.vhod .metka{margin-bottom:10px}
+.vhod b{display:block;font:800 clamp(46px,5vw,66px)/1 var(--hd);margin-bottom:12px}
+.vhod article.vy b{color:var(--ak)}
+.vhod ul{list-style:none;margin:0;padding:0}
+.vhod li{position:relative;padding:0 0 0 20px;margin:0 0 6px;color:var(--tx2);font-size:17px;line-height:1.4}
+.vhod li:before{content:"";position:absolute;left:0;top:.66em;width:10px;height:2px;background:var(--ak)}
+.vhod .str{align-self:center;font:800 44px/1 var(--hd);color:var(--ak)}
 
-/* Концовка */
-.konec h2{max-width:16em}
-.avtor{display:flex;align-items:center;gap:16px;margin:28px 0}
-.avtor img{width:84px;height:84px;border-radius:50%;object-fit:cover}
-.avtor b{display:block;font-size:19px}
-.avtor span{font-size:15px;color:var(--soft)}
-footer{padding:28px 0 40px;font-size:14px;color:var(--soft);border-top:1px solid var(--liniya)}
+/* видео 16:9 */
+.ekran{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 26px 70px rgba(40,30,20,.25)}
+.ekran img,.ekran video{display:block;width:100%;height:100%;object-fit:cover;border:0}
+.ekran .pusk{all:unset;cursor:pointer;position:absolute;inset:0;display:flex;align-items:flex-end;padding:28px;background:linear-gradient(to top,rgba(0,0,0,.55),transparent 45%)}
+.ekran .pusk>span{display:inline-flex;align-items:center;gap:14px;font:700 19px/1.2 'Sofia Sans';color:#fff}
+.ekran .pusk b{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--ak);flex:none}
+.ekran .pusk b:after{content:"";margin-left:5px;border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent}
+.ekran .pusk small{display:block;font-weight:400;font-size:16px;color:#e6e6e6}
 
-@media (max-width:1000px){
- .sposoby{grid-template-columns:repeat(2,1fr)}
- .sposob:last-child{grid-column:1/-1}
- .roliki{grid-template-columns:repeat(2,1fr)}
- .roliki.tri{grid-template-columns:repeat(3,1fr)}
+/* главы */
+.glavy{display:grid;grid-template-columns:repeat(3,1fr);gap:26px 14px;margin-top:40px}
+.glavy img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;background:#ccc}
+.glavy figcaption{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin-top:10px;font-size:16px;line-height:1.35}
+.glavy time{font:800 20px/1.1 var(--hd);color:var(--akt)}
+.glavy figcaption span{color:var(--tx);font-weight:700}
+figure{margin:0}
+
+/* ленты вертикальных роликов */
+.rilsy{margin-top:72px}
+.rilsy .sh{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:22px}
+.rilsy .sh h3{margin:0}
+.rilsy .sh p{margin:0;color:var(--mut);font-size:16px}
+.polosa{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 16px;align-items:start}
+.polosa.dva{grid-template-columns:repeat(4,1fr)}
+.ril{all:unset;cursor:pointer;display:block;min-width:0}
+.ril .ob{position:relative;display:block;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#222;box-shadow:0 12px 34px rgba(40,30,20,.16)}
+.ril img,.ril video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ril .ob:after{content:"";position:absolute;right:12px;bottom:12px;width:44px;height:44px;border-radius:50%;background:var(--ak) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cpath d='M18 14l13 8-13 8z' fill='%23fff'/%3E%3C/svg%3E") center/44px no-repeat}
+.ril.idet .ob:after{display:none}
+.ril:hover .ob,.ril:focus-visible .ob{outline:2px solid var(--ak);outline-offset:2px}
+.ril .nz{display:block;margin:12px 2px 0;font:700 17px/1.3 'Sofia Sans';color:var(--tx)}
+.ril .kto{display:block;margin:4px 2px 0;font-size:15px;line-height:1.35;color:var(--mut)}
+
+/* под ключ */
+.kartochki{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.kartochki article{background:var(--pl);border-radius:16px;padding:22px 22px 20px;border-top:2px solid var(--ak)}
+.kartochki span{display:block;font:800 22px/1 var(--hd);color:var(--ak);margin-bottom:12px}
+.kartochki h4{font:700 21px/1.25 'Sofia Sans';margin:0}
+.chestno{margin-top:40px;background:var(--pl);border-radius:18px;padding:26px 30px;border-left:3px solid var(--ak)}
+.chestno p{margin:0}
+.chestno p+p{margin-top:8px;color:var(--mut)}
+
+/* контакты */
+.kontakty{padding:96px 0 40px;border-top:1px solid var(--li);background:var(--tmn)}
+.kontakty h2{max-width:16em;margin-bottom:22px}
+.kontakty h2 span{color:var(--ak)}
+.kontakty .lead{margin-bottom:34px}
+.avtor{display:flex;align-items:center;gap:16px;margin:0 0 28px}
+.avtor img{width:72px;height:72px;border-radius:50%;object-fit:cover}
+.avtor b{display:block;font:700 19px/1.25 'Sofia Sans'}
+.avtor span{display:block;color:var(--mut);font-size:16px}
+.kontakty .knopki .b{font-size:18px;padding:16px 28px}
+.podval{display:grid;grid-template-columns:1.2fr 2fr 1.2fr;gap:28px;margin-top:88px;padding-top:28px;border-top:1px solid #CFC7BA;font-size:15px;color:var(--mut)}
+.podval p{margin:0}
+.podval .marka{font-size:24px}
+.podval nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.podval nav a{color:var(--mut);text-decoration:none}
+.podval nav a:hover{color:var(--tx)}
+.podval .meta{text-align:right}
+
+@media(max-width:1000px){
+  .shapka .w{flex-wrap:wrap;height:auto;gap:4px 16px;padding-top:10px;padding-bottom:6px}
+  .menu{margin-left:-12px;width:calc(100% + 24px);overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+  .menu::-webkit-scrollbar{display:none}
+  html{scroll-padding-top:104px}
+  .afisha{min-height:0;display:block}
+  .afisha>.w{grid-template-columns:1fr;padding-top:40px}
+  .veer{max-width:560px;margin:8px auto 0}
+  .sposoby .w{grid-template-columns:repeat(3,1fr)}
+  .dv{grid-template-columns:1fr}
+  .polosa,.polosa.dva{grid-template-columns:repeat(3,1fr)}
+  .podval{grid-template-columns:1fr}
+  .podval .meta{text-align:left}
 }
-@media (max-width:820px){
- .e0 .setka{grid-template-columns:1fr;gap:36px}
- .vitrina img:nth-child(2){transform:none}
- h1{font-size:58px}
-}
-@media (max-width:640px){
- body{font-size:17px}
- .in{padding:0 18px}
- h1{font-size:46px} h2{font-size:36px} h3{font-size:23px}
- section{padding:52px 0}
- .e0{padding:8px 0 52px}
- .e0 .lid{font-size:19px}
- .imya{font-size:26px}
- .sposoby{grid-template-columns:1fr;gap:10px}
- .sposob{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:16px 18px}
- .sposob .n{font-size:30px;min-width:22px}
- .sposob b{flex:1}
- .sposob span:not(.n){flex-basis:100%;padding-left:34px}
- .sposob .skoro{margin-left:34px}
- .shagi{grid-template-columns:1fr;gap:10px}
- .shagi li{display:grid;grid-template-columns:34px 1fr;padding:16px}
- .shagi li::before{font-size:28px;margin:0}
- .roliki,.roliki.tri{grid-template-columns:repeat(2,1fr);gap:12px}
- .roliki figcaption b{font-size:16px}
- .btn{font-size:17px}
+@media(max-width:640px){
+  body{font-size:17px}
+  .w{padding:0 18px}
+  .afisha h1{font-size:clamp(52px,15vw,72px)}
+  .titr p{font-size:18px}
+  .lead{font-size:22px}
+  .veer a{border-radius:10px}
+  .sposoby{padding-top:40px}
+  .sposoby .w{grid-template-columns:1fr;gap:10px}
+  .sposoby a{display:grid;grid-template-columns:44px 1fr;gap:2px 12px;padding:16px 18px}
+  .sposoby b{grid-row:span 2;margin:0;font-size:32px}
+  .sposoby strong{margin:0;font-size:18px}
+  .sposoby+.razdel{margin-top:68px}
+  .razdel{padding:68px 0}
+  h2{margin-bottom:28px}
+  .otnas{grid-template-columns:1fr;gap:10px}
+  .primer{margin-top:60px;padding-top:44px}
+  .vhod{grid-template-columns:1fr;gap:10px}
+  .vhod .str{justify-self:center;transform:rotate(90deg);font-size:36px}
+  .ekran .pusk{padding:16px}
+  .ekran .pusk b{width:52px;height:52px}
+  .glavy{grid-template-columns:1fr 1fr;gap:20px 12px}
+  .glavy figcaption{grid-template-columns:1fr;font-size:15px}
+  .rilsy{margin-top:56px}
+  .rilsy .sh{display:block}
+  .rilsy .sh p{margin-top:6px}
+  .polosa,.polosa.dva{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -18px;padding:0 18px 10px;scrollbar-width:none}
+  .polosa::-webkit-scrollbar{display:none}
+  .ril{flex:0 0 62%;scroll-snap-align:start}
+  .kartochki{grid-template-columns:1fr}
+  .chestno{padding:22px}
 }
 </style>
 </head>
 <body>
+<header class="shapka">
+ <div class="w">
+  <a class="marka" href="#top">Форма<i>.</i>ТТ</a>
+  <nav class="menu" aria-label="Способы">
+   <a href="#papka">Из папки</a>
+   <a href="#rilsy">Рилсы</a>
+   <a href="#studiya">Студия</a>
+   <a href="#multik">Мультфильмы</a>
+   <a href="#klyuch">Под ключ</a>
+   <a href="#svyaz" class="sv">Написать</a>
+  </nav>
+ </div>
+</header>
 
-<!-- 0. Первый экран -->
-<section class="e0">
- <div class="in">
-  <div class="shapka">
-   <a class="imya" href="#">Форма.ТТ</a>
-   <a class="btn mal kont" href="https://t.me/ingvarcrypto" target="_blank" rel="noopener">Написать</a>
+<main id="top">
+<section class="afisha" aria-labelledby="glavnoe">
+ <div class="w">
+  <div>
+   <p class="metka">Ролики для соцсетей</p>
+   <h1 id="glavnoe">Если тебя нет в&nbsp;сети, <span>тебя нет</span></h1>
+   <div class="titr">
+    <p>Клиенты сегодня приходят из&nbsp;соцсетей. Почти все.</p>
+    <p>Либо вас там знают, либо бизнес придётся закрывать.</p>
+   </div>
+   <p class="lead">«Форма.ТТ» делает так, чтобы вы были в&nbsp;соцсетях эффектно и&nbsp;с&nbsp;толком. Способов пять, у&nbsp;каждого свои примеры.</p>
+   <div class="knopki">
+    <a class="b ak" href="#sposoby">Выбрать способ</a>
+    <a class="b kont" href="https://t.me/ingvarcrypto" target="_blank" rel="noopener">Написать в&nbsp;Телеграм</a>
+   </div>
   </div>
-  <div class="setka">
+  <div class="veer">
+   <a href="#studiya" aria-label="Отец Михаил Дочия, ролик со студии"><img src="o/studiya-mihail-03c.jpg" alt="Отец Михаил Дочия на студии" width="540" height="960"></a>
+   <a href="#studiya" aria-label="Дмитрий Бобров, ролик со студии"><img src="o/studiya-bobrov-02.jpg" alt="Дмитрий Бобров на студии" width="540" height="960"></a>
+   <a href="#studiya" aria-label="Игорь Ильин, ролик со студии"><img src="o/studiya-ilyin-04c.jpg" alt="Игорь Ильин на студии" width="540" height="960"></a>
+   <p class="veer-pod">Кадры из&nbsp;роликов, снятых на&nbsp;нашей студии</p>
+  </div>
+ </div>
+</section>
+
+<!-- пять способов -->
+<section class="sposoby" id="sposoby" aria-label="Пять способов">
+ <div class="w">
+  <a href="#papka"><b>01</b><strong>Монтаж из&nbsp;вашей папки</strong><span>Есть отснятое - присылаете папку</span></a>
+  <a href="#rilsy"><b>02</b><strong>Рилсы из&nbsp;длинных роликов</strong><span>Есть выпуски - присылаете ссылку</span></a>
+  <a href="#studiya"><b>03</b><strong>Съёмка на&nbsp;студии</strong><span>Нет ничего - приезжаете к&nbsp;нам</span></a>
+  <a href="#multik"><b>04</b><strong>Мультфильм про ваше дело</strong><span>Рассказываете о&nbsp;производстве</span></a>
+  <a href="#klyuch"><b>05</b><strong>Под ключ</strong><span>Пресса, телевидение, всё сразу</span></a>
+ </div>
+</section>
+
+<!-- 01 Монтаж из папки -->
+<section class="razdel" id="papka" aria-labelledby="papka-t">
+ <div class="w">
+  <p class="nom"><b>01</b> Монтаж из&nbsp;папки</p>
+  <h2 id="papka-t">Отснятое лежит мёртвым грузом? Сделаем из&nbsp;него ролики</h2>
+  <div class="dv">
    <div>
-    <h1>Если тебя нет в&nbsp;сети, <span class="akc">тебя нет</span></h1>
-    <p class="lid">Клиенты сегодня приходят из&nbsp;соцсетей. Почти все. Либо вас там знают, либо бизнес придётся закрывать.</p>
-    <p class="lid">«Форма.ТТ» делает так, чтобы вы были в&nbsp;соцсетях эффектно и&nbsp;с&nbsp;толком. Способов пять, у&nbsp;каждого свои примеры.</p>
-    <div class="knopki">
-     <a class="btn" href="#sposoby">Выбрать способ</a>
-     <a class="btn kont" href="https://t.me/ingvarcrypto" target="_blank" rel="noopener">Написать в&nbsp;Телеграм</a>
+    <p class="lead">С&nbsp;телефона, с&nbsp;мероприятий, со&nbsp;старых съёмок. Присылаете огромную папку или привозите диск - мы делаем из&nbsp;неё нормальные ролики.</p>
+    <div class="otnas">
+     <div><span>От вас</span><b>Папка с&nbsp;материалом</b></div>
+     <div><span>От нас</span><b>Монтаж, титры, обложки</b></div>
     </div>
    </div>
-   <div class="vitrina" aria-hidden="true">
-    <img src="https://ilin20vek.github.io/uskov-podarok/o/uskov-n06-neyronka-na-sobesedovanii.jpg" alt="">
-    <img src="https://ilin20vek.github.io/bobrov-rilsy/o/n20-proizvesti-legche-chem-prodat.jpg" alt="">
-    <img src="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/o/mihail-n01-krest-skripit-no-neset.jpg" alt="">
+   <ol class="shagi">
+    <li><div><b>Присылаете папку</b><span>Ссылкой на&nbsp;облако или привозите диск.</span></div></li>
+    <li><div><b>Монтируем</b><span>Отбираем живые моменты и&nbsp;собираем первые ролики.</span></div></li>
+    <li><div><b>Вы вносите правки</b><span>Смотрите и&nbsp;говорите, что поменять.</span></div></li>
+    <li><div><b>Решаем, чего не&nbsp;хватает</b><span>Иногда материала достаточно, иногда нет.</span><span class="razvilka"><i>доснять</i><i>дорисовать</i><i>домонтировать</i></span></div></li>
+    <li><div><b>Отдаём готовое</b><span>Выкладываете у&nbsp;себя.</span></div></li>
+   </ol>
+  </div>
+
+  <div class="primer" id="boyarintsevo">
+   <p class="metka">Пример: фильм «Бояринцево: школа в&nbsp;поле»</p>
+   <h3>Папка с&nbsp;камеры - и&nbsp;готовый фильм с&nbsp;главами</h3>
+   <p class="tx2">Семья строит школу в&nbsp;поле, где пока нет деревни. Из&nbsp;сырой съёмки собрали <span class="nw">интервью-фильм</span>: разговор на&nbsp;прогулке, рассказ жены, хозяйство, финал.</p>
+   <div class="vhod">
+    <article>
+     <span class="metka">Пришло</span>
+     <b>около 50&nbsp;ГБ</b>
+     <ul>
+      <li>112 файлов с&nbsp;камеры</li>
+      <li>10 записей с&nbsp;петличек</li>
+      <li>больше 2&nbsp;часов видео</li>
+     </ul>
+    </article>
+    <div class="str" aria-hidden="true">→</div>
+    <article class="vy">
+     <span class="metka">Отдали</span>
+     <b>22 минуты</b>
+     <ul>
+      <li>фильм в&nbsp;Full HD</li>
+      <li>вступление, 5&nbsp;глав и&nbsp;финал</li>
+      <li>цвет, звук, титры, музыка</li>
+     </ul>
+    </article>
+   </div>
+   <div class="ekran" id="ekran">
+    <img src="o/boyarintsevo-fragmentc.jpg" alt="Илья и Роман у дома в Бояринцеве" width="1280" height="720">
+    <button class="pusk" type="button" data-v="v/boyarintsevo-fragment.mp4" aria-label="Смотреть фрагмент фильма"><span><b></b><span>Фрагмент фильма<small>13&nbsp;секунд из&nbsp;22&nbsp;минут</small></span></span></button>
+   </div>
+   <div class="glavy">
+    <figure><img src="o/boyarintsevo-b-1.jpg" alt="Кадр из первой главы" width="960" height="540"><figcaption><time>1:09</time><span>Зачем строить школу там, где нет деревни?</span></figcaption></figure>
+    <figure><img src="o/boyarintsevo-b-2.jpg" alt="Кадр из второй главы" width="960" height="540"><figcaption><time>5:04</time><span>Каким будет городок, которого ещё нет?</span></figcaption></figure>
+    <figure><img src="o/boyarintsevo-b-3.jpg" alt="Кадр из третьей главы" width="960" height="540"><figcaption><time>8:56</time><span>А&nbsp;что об&nbsp;этом думает жена?</span></figcaption></figure>
+    <figure><img src="o/boyarintsevo-b-4.jpg" alt="Кадр из четвёртой главы" width="960" height="540"><figcaption><time>13:06</time><span>Чем живёт хозяйство?</span></figcaption></figure>
+    <figure><img src="o/boyarintsevo-b-5.jpg" alt="Кадр из пятой главы" width="960" height="540"><figcaption><time>15:48</time><span>Кому сюда ехать и&nbsp;во&nbsp;что это обходится?</span></figcaption></figure>
+    <figure><img src="o/boyarintsevo-b-6.jpg" alt="Кадр из финала" width="960" height="540"><figcaption><time>19:39</time><span>Делать <span class="nw">по-старому</span>, но&nbsp;сегодня</span></figcaption></figure>
    </div>
   </div>
  </div>
 </section>
 
-<!-- Оглавление: пять способов -->
-<section id="sposoby">
- <div class="in">
-  <p class="nom">Пять способов</p>
-  <h2>Выберите, с&nbsp;чего начать</h2>
-  <p>Начать можно с&nbsp;того, что у&nbsp;вас уже есть. Нажмите на&nbsp;способ - покажем, как он работает и&nbsp;что уже сделано.</p>
-  <div class="sposoby">
-   <a class="sposob" href="#papka"><span class="n">1</span><b>Монтаж из&nbsp;вашей папки</b><span>Есть отснятое - присылаете папку</span></a>
-   <a class="sposob" href="#rilsy"><span class="n">2</span><b>Рилсы из&nbsp;длинных роликов</b><span>Есть выпуски - присылаете ссылку</span></a>
-   <a class="sposob" href="#studiya"><span class="n">3</span><b>Съёмка на&nbsp;студии</b><span>Нет ничего - приезжаете к&nbsp;нам</span></a>
-   <a class="sposob" href="#multik"><span class="n">4</span><b>Мультфильм про ваше дело</b><span>Рассказываете о&nbsp;производстве</span></a>
-   <a class="sposob" href="#podklyuch"><span class="n">5</span><b>Под ключ</b><span>Пресса, телевидение, всё сразу</span></a>
+<!-- 02 Рилсы из длинных роликов -->
+<section class="razdel tmn" id="rilsy" aria-labelledby="rilsy-t">
+ <div class="w">
+  <p class="nom"><b>02</b> Рилсы</p>
+  <h2 id="rilsy-t">Длинные выпуски есть, а&nbsp;коротких нет? Нарежем рилсы</h2>
+  <div class="dv">
+   <div>
+    <p class="lead">Интервью, подкасты, эфиры. Без короткого формата новые люди вас не&nbsp;находят. Присылаете ссылку, дальше всё делаем сами.</p>
+    <div class="otnas">
+     <div><span>От вас</span><b>Ссылка на&nbsp;выпуск</b></div>
+     <div><span>От нас</span><b>Всё остальное</b></div>
+    </div>
+   </div>
+   <ol class="shagi">
+    <li><div><b>Присылаете ссылку</b><span>На&nbsp;YouTube, ВК, куда угодно.</span></div></li>
+    <li><div><b>Находим сильные места</b><span>Мысли, которые цепляют без начала и&nbsp;конца выпуска.</span></div></li>
+    <li><div><b>Монтируем</b><span>Вертикальный кадр, титры, обложка, описание.</span></div></li>
+    <li><div><b>Отдаём готовые рилсы</b><span>Смотрите, правите, выкладываете.</span></div></li>
+   </ol>
+  </div>
+  <div class="rilsy">
+   <div class="sh"><h3>Из&nbsp;интервью и&nbsp;подкастов</h3><p>Нажмите, чтобы посмотреть</p></div>
+   <div class="polosa">
+    <button class="ril" type="button" data-v="https://ilin20vek.github.io/uskov-podarok/v/uskov-n06-neyronka-na-sobesedovanii.mp4"><span class="ob"><img src="o/rilsy-uskov-n06.jpg" alt="Юрий Усков в студии подкаста" width="540" height="960"></span><span class="nz">Кандидата на&nbsp;собеседовании поймали на&nbsp;нейросети</span><span class="kto">Юрий Усков, iSpring - из&nbsp;интервью</span></button>
+    <button class="ril" type="button" data-v="https://ilin20vek.github.io/bobrov-rilsy/v/n20-proizvesti-legche-chem-prodat.mp4"><span class="ob"><img src="o/rilsy-bobrov-n20.jpg" alt="Дмитрий Бобров в студии подкаста" width="540" height="960"></span><span class="nz">Почему хороший товар не&nbsp;продаётся сам</span><span class="kto">Дмитрий Бобров - из&nbsp;подкаста</span></button>
+    <button class="ril" type="button" data-v="https://ilin20vek.github.io/stoglav-rilsy/v/stoglav-n04-boyarskiy.mp4"><span class="ob"><img src="o/rilsy-stoglav-n04.jpg" alt="Всеволод Чухаркин в студии" width="540" height="960"></span><span class="nz">Песни Боярского: от&nbsp;«срамоты» до&nbsp;благочестия</span><span class="kto">Всеволод Чухаркин, «Стоглав» - из&nbsp;выпуска</span></button>
+    <button class="ril" type="button" data-v="https://ilin20vek.github.io/bobrov-rilsy/v/n21-sklad-sgorel.mp4"><span class="ob"><img src="o/rilsy-bobrov-n21.jpg" alt="Дмитрий Бобров в студии подкаста" width="540" height="960"></span><span class="nz">Склад сгорел. А&nbsp;дальше?</span><span class="kto">Дмитрий Бобров - из&nbsp;подкаста</span></button>
+   </div>
   </div>
  </div>
 </section>
 
-<!-- 1. Монтаж из папки -->
-<section id="papka">
- <div class="in">
-  <p class="nom">Способ 1</p>
-  <h2>Монтаж из&nbsp;вашей папки</h2>
-  <p>У&nbsp;вас уже есть отснятое: с&nbsp;телефона, с&nbsp;мероприятий, со&nbsp;старых съёмок. Лежит мёртвым грузом. Присылаете огромную папку или привозите диск - мы делаем из&nbsp;неё нормальные ролики.</p>
-  <div class="fakty">
-   <div>От вас: <b>папка с&nbsp;материалом</b></div>
-   <div>От нас: <b>монтаж, титры, обложки</b></div>
-   <div>Цена: <b>обсудим на&nbsp;созвоне</b></div>
+<!-- 03 Студия -->
+<section class="razdel" id="studiya" aria-labelledby="studiya-t">
+ <div class="w">
+  <p class="nom"><b>03</b> Студия</p>
+  <h2 id="studiya-t">Снимать нечего и&nbsp;некому? Приезжайте к&nbsp;нам на&nbsp;студию</h2>
+  <div class="dv">
+   <div>
+    <p class="lead">Свет, звук, камера, цвет - наша забота. Вы говорите о&nbsp;своём деле, мы снимаем и&nbsp;упаковываем.</p>
+    <div class="otnas">
+     <div><span>От вас</span><b>Приехать и&nbsp;говорить</b></div>
+     <div><span>От нас</span><b>Съёмка, монтаж, цвет, обложки</b></div>
+    </div>
+    <p class="skoro"><i>Скоро</i> Выездная съёмка: приедем к&nbsp;вам на&nbsp;предприятие.</p>
+   </div>
+   <ol class="shagi">
+    <li><div><b>Договариваемся о&nbsp;темах</b><span>О&nbsp;чём вам есть что сказать.</span></div></li>
+    <li><div><b>Приезжаете на&nbsp;студию</b><span>Снимаем разговор на&nbsp;хорошую камеру.</span></div></li>
+    <li><div><b>Монтируем и&nbsp;доводим</b><span>Цвет, звук, титры - как в&nbsp;кино, а&nbsp;не&nbsp;как с&nbsp;телефона.</span></div></li>
+    <li><div><b>Отдаём ролики</b><span>С&nbsp;обложками и&nbsp;описаниями.</span></div></li>
+   </ol>
   </div>
-  <ol class="shagi">
-   <li><div><b>Присылаете папку</b>Ссылкой на&nbsp;облако или привозите диск.</div></li>
-   <li><div><b>Монтируем</b>Отбираем живые моменты и&nbsp;собираем первые ролики.</div></li>
-   <li><div><b>Вы вносите правки</b>Смотрите и&nbsp;говорите, что поменять.</div></li>
-   <li><div><b>Решаем, чего не&nbsp;хватает</b>Иногда этого достаточно, иногда нет.<div class="razvilka"><span>доснять</span><span>дорисовать</span><span>домонтировать</span></div></div></li>
-   <li><div><b>Отдаём готовое</b>Выкладываете у&nbsp;себя.</div></li>
-  </ol>
-  <h3>Пример: отец Михаил, беседа в&nbsp;зале</h3>
-  <p class="pod">Сорок минут беседы с&nbsp;прихожанами записали одним куском, горизонтально, без студии. Из&nbsp;этой записи - вертикальные короткие ролики.</p>
-  <div class="roliki tri">
-   <figure><div class="rol"><video src="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/v/mihail-n01-krest-skripit-no-neset.mp4" poster="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/o/mihail-n01-krest-skripit-no-neset.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Крест скрипит, но несёт</b>Отец Михаил, беседа в&nbsp;зале</figcaption></figure>
-   <figure><div class="rol"><video src="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/v/mihail-n02-avraam-i-syn.mp4" poster="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/o/mihail-n02-avraam-i-syn.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Зачем Бог испытал Авраама</b>Отец Михаил, беседа в&nbsp;зале</figcaption></figure>
-   <figure><div class="rol"><video src="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/v/mihail-n09-kamen-kotoryy-bog-ne-podnimet.mp4" poster="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/o/mihail-n09-kamen-kotoryy-bog-ne-podnimet.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Камень, который Бог не&nbsp;поднимет</b>Отец Михаил, беседа в&nbsp;зале</figcaption></figure>
-  </div>
- </div>
-</section>
-
-<!-- 2. Рилсы из длинных роликов -->
-<section id="rilsy">
- <div class="in">
-  <p class="nom">Способ 2</p>
-  <h2>Рилсы из&nbsp;длинных роликов</h2>
-  <p>У&nbsp;вас есть длинные выпуски, интервью, подкасты. А&nbsp;короткого формата нет - и&nbsp;новые люди вас не&nbsp;находят. Присылаете ссылку, дальше всё делаем сами.</p>
-  <div class="fakty">
-   <div>От вас: <b>ссылка на&nbsp;выпуск</b></div>
-   <div>От нас: <b>всё остальное</b></div>
-   <div>Цена: <b>обсудим на&nbsp;созвоне</b></div>
-  </div>
-  <ol class="shagi">
-   <li><div><b>Присылаете ссылку</b>На&nbsp;YouTube, ВК, куда угодно.</div></li>
-   <li><div><b>Находим сильные места</b>Мысли, которые цепляют без начала и&nbsp;конца выпуска.</div></li>
-   <li><div><b>Монтируем</b>Вертикальный кадр, титры, обложка, описание.</div></li>
-   <li><div><b>Отдаём готовые рилсы</b>Смотрите, правите, выкладываете.</div></li>
-  </ol>
-  <h3>Примеры: из&nbsp;интервью и&nbsp;подкастов</h3>
-  <div class="roliki">
-   <figure><div class="rol"><video src="https://ilin20vek.github.io/uskov-podarok/v/uskov-n06-neyronka-na-sobesedovanii.mp4" poster="https://ilin20vek.github.io/uskov-podarok/o/uskov-n06-neyronka-na-sobesedovanii.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Кандидата на&nbsp;собеседовании поймали на&nbsp;нейросети</b>Юрий Усков, iSpring - из&nbsp;интервью</figcaption></figure>
-   <figure><div class="rol"><video src="https://ilin20vek.github.io/bobrov-rilsy/v/n20-proizvesti-legche-chem-prodat.mp4" poster="https://ilin20vek.github.io/bobrov-rilsy/o/n20-proizvesti-legche-chem-prodat.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Почему хороший товар не&nbsp;продаётся сам</b>Из&nbsp;подкаста Дмитрия Боброва</figcaption></figure>
-   <figure><div class="rol"><video src="https://ilin20vek.github.io/bobrov-rilsy/v/n21-sklad-sgorel.mp4" poster="https://ilin20vek.github.io/bobrov-rilsy/o/n21-sklad-sgorel.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Склад сгорел. А&nbsp;дальше?</b>Из&nbsp;подкаста Дмитрия Боброва</figcaption></figure>
-   <figure><div class="rol"><video src="https://ilin20vek.github.io/stoglav-rilsy/v/stoglav-n12-rus-stoit-vopreki.mp4" poster="https://ilin20vek.github.io/stoglav-rilsy/o/stoglav-n12-rus-stoit-vopreki.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Русь стоит вопреки</b>Культурный центр «Стоглав» - из&nbsp;выпуска «Культурный код»</figcaption></figure>
+  <div class="rilsy">
+   <div class="sh"><h3>Снято на&nbsp;нашей студии</h3><p>Ноябрь 2026, нажмите, чтобы посмотреть</p></div>
+   <div class="polosa">
+    <button class="ril" type="button" data-v="v/studiya-mihail-03.mp4"><span class="ob"><img src="o/studiya-mihail-03c.jpg" alt="Отец Михаил Дочия на студии" width="540" height="960"></span><span class="nz">С&nbsp;Богом можно быть только здесь и&nbsp;сейчас</span><span class="kto">Отец Михаил Дочия</span></button>
+    <button class="ril" type="button" data-v="v/studiya-bobrov-02.mp4"><span class="ob"><img src="o/studiya-bobrov-02.jpg" alt="Дмитрий Бобров на студии" width="540" height="960"></span><span class="nz">Роботы освободят от&nbsp;работы... и&nbsp;от&nbsp;зарплаты?</span><span class="kto">Дмитрий Бобров</span></button>
+    <button class="ril" type="button" data-v="v/studiya-ilyin-17.mp4"><span class="ob"><img src="o/studiya-ilyin-17c.jpg" alt="Игорь Ильин на студии" width="540" height="960"></span><span class="nz">Нас обманули: отпуск у&nbsp;хлорированного бассейна</span><span class="kto">Игорь Ильин</span></button>
+    <button class="ril" type="button" data-v="v/studiya-mihail-11.mp4"><span class="ob"><img src="o/studiya-mihail-11c.jpg" alt="Отец Михаил Дочия на студии" width="540" height="960"></span><span class="nz">Почему делать зло легче, чем добро</span><span class="kto">Отец Михаил Дочия</span></button>
+    <button class="ril" type="button" data-v="v/studiya-bobrov-08.mp4"><span class="ob"><img src="o/studiya-bobrov-08.jpg" alt="Дмитрий Бобров на студии" width="540" height="960"></span><span class="nz">Пианино играет само. Зачем тогда идти на&nbsp;концерт?</span><span class="kto">Дмитрий Бобров</span></button>
+    <button class="ril" type="button" data-v="v/studiya-ilyin-04.mp4"><span class="ob"><img src="o/studiya-ilyin-04c.jpg" alt="Игорь Ильин на студии" width="540" height="960"></span><span class="nz">Нас обманули: одиннадцать лет за&nbsp;партой</span><span class="kto">Игорь Ильин</span></button>
+    <button class="ril" type="button" data-v="v/studiya-mihail-12.mp4"><span class="ob"><img src="o/studiya-mihail-12c.jpg" alt="Отец Михаил Дочия на студии" width="540" height="960"></span><span class="nz">Первородный грех: при&nbsp;чём тут я</span><span class="kto">Отец Михаил Дочия</span></button>
+    <button class="ril" type="button" data-v="v/studiya-chuharkin-p01.mp4"><span class="ob"><img src="o/studiya-chuharkin-p01c.jpg" alt="Всеволод Чухаркин на студии" width="540" height="960"></span><span class="nz">О&nbsp;соборной молитве</span><span class="kto">Всеволод Чухаркин, «Стоглав»</span></button>
+   </div>
   </div>
  </div>
 </section>
 
-<!-- 3. Студия -->
-<section id="studiya">
- <div class="in">
-  <p class="nom">Способ 3</p>
-  <h2>Съёмка на&nbsp;студии</h2>
-  <p>Снимать нечего и&nbsp;некому - приезжайте к&nbsp;нам. Свет, звук, камера, цвет - наша забота. Вы говорите о&nbsp;своём деле, мы снимаем и&nbsp;упаковываем.</p>
-  <div class="fakty">
-   <div>От вас: <b>приехать и&nbsp;говорить</b></div>
-   <div>От нас: <b>съёмка, монтаж, цвет, обложки</b></div>
-   <div>Цена: <b>обсудим на&nbsp;созвоне</b></div>
+<!-- 04 Мультфильмы -->
+<section class="razdel tmn" id="multik" aria-labelledby="multik-t">
+ <div class="w">
+  <p class="nom"><b>04</b> Мультфильмы</p>
+  <h2 id="multik-t">Про производство в&nbsp;лоб никто смотреть не&nbsp;будет. Мультфильм - будут</h2>
+  <div class="dv">
+   <div>
+    <p class="lead">Мультфильм начинает с&nbsp;темы, которая цепляет всех, и&nbsp;через неё выводит на&nbsp;вашу компанию. Человек смотрит, подписывается, а&nbsp;потом покупает.</p>
+    <div class="otnas">
+     <div><span>От вас</span><b>Рассказать о&nbsp;производстве</b></div>
+     <div><span>От нас</span><b>Сценарий, рисунок, голос, монтаж</b></div>
+    </div>
+   </div>
+   <div class="chestno" style="margin-top:0">
+    <p><b>Пока это пилоты.</b> Так выглядит стиль.</p>
+    <p>Мультфильма про производство клиента ещё нет - первый может стать вашим.</p>
+   </div>
   </div>
-  <ol class="shagi">
-   <li><div><b>Договариваемся о&nbsp;темах</b>О&nbsp;чём вам есть что сказать.</div></li>
-   <li><div><b>Приезжаете на&nbsp;студию</b>Снимаем разговор на&nbsp;хорошую камеру.</div></li>
-   <li><div><b>Монтируем и&nbsp;доводим</b>Цвет, звук, титры - как в&nbsp;кино, а&nbsp;не&nbsp;как с&nbsp;телефона.</div></li>
-   <li><div><b>Отдаём ролики</b>С&nbsp;обложками и&nbsp;описаниями.</div></li>
-  </ol>
-  <p><span class="metka">Скоро</span>&nbsp; Выездная съёмка - приедем к&nbsp;вам на&nbsp;предприятие.</p>
-  <h3>Примеры: снято на&nbsp;нашей студии</h3>
-  <div class="roliki" id="roliki-studii">
-   <figure><div class="rol"><video src="v/studiya-igor-01a.mp4" poster="o/studiya-igor-01a.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Ты не&nbsp;крутой - ты обманутый человек</b>Игорь Ильин, студия</figcaption></figure>
-   <figure><div class="rol"><video src="v/studiya-mihail-st-01.mp4" poster="o/studiya-mihail-st-01.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Куда я&nbsp;пошёл?</b>Отец Михаил Дочия, студия</figcaption></figure>
-   <figure><div class="rol"><video src="v/studiya-mihail-st-2a.mp4" poster="o/studiya-mihail-st-2a.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Герой или подлец</b>Отец Михаил Дочия, студия</figcaption></figure>
-   <figure><div class="rol"><video src="v/studiya-chuharkin-p01.mp4" poster="o/studiya-chuharkin-p01.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>О&nbsp;соборной молитве</b>Всеволод Чухаркин, «Стоглав», студия</figcaption></figure>
-  </div>
- </div>
-</section>
-
-<!-- 4. Мультфильм -->
-<section id="multik">
- <div class="in">
-  <p class="nom">Способ 4</p>
-  <h2>Мультфильм про ваше дело</h2>
-  <p>Про производство в&nbsp;лоб никто смотреть не&nbsp;будет. Мультфильм начинает с&nbsp;темы, которая цепляет всех, и&nbsp;через неё выводит на&nbsp;вашу компанию. Человек смотрит, подписывается, а&nbsp;потом покупает.</p>
-  <div class="fakty">
-   <div>От вас: <b>рассказать о&nbsp;производстве</b></div>
-   <div>От нас: <b>сценарий, рисунок, голос, монтаж</b></div>
-   <div>Цена: <b>обсудим на&nbsp;созвоне</b></div>
-  </div>
-  <h3>Пока это пилоты</h3>
-  <p class="pod">Так выглядит стиль. Мультфильма про производство клиента ещё нет - первый может стать вашим.</p>
-  <div class="roliki dva">
-   <figure><div class="rol"><video src="v/multik-nas-obmanuli-pilot.mp4" poster="o/multik-nas-obmanuli-pilot.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>«Нас обманули»</b>Пилот. Про семью и&nbsp;детей, голос Игоря Ильина</figcaption></figure>
-   <figure><div class="rol"><video src="https://ilin20vek.github.io/afon-paisiy/v/39-pilot.mp4" poster="o/afon-39-pilot.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Старец Паисий</b>Пилот для проекта про Афон, английские субтитры</figcaption></figure>
+  <div class="rilsy">
+   <div class="sh"><h3>Пилоты</h3><p>Нажмите, чтобы посмотреть</p></div>
+   <div class="polosa dva">
+    <button class="ril" type="button" data-v="v/multik-nas-obmanuli-pilot.mp4"><span class="ob"><img src="o/multik-nas-obmanuli-pilot.jpg" alt="Кадр мультфильма «Нас обманули»" width="540" height="960"></span><span class="nz">«Нас обманули»</span><span class="kto">Про семью и&nbsp;детей, голос Игоря Ильина</span></button>
+    <button class="ril" type="button" data-v="https://ilin20vek.github.io/afon-paisiy/v/39-pilot.mp4"><span class="ob"><img src="o/afon-39-pilotc.jpg" alt="Кадр мультфильма о старце Паисии" width="540" height="960"></span><span class="nz">Старец Паисий</span><span class="kto">Для проекта про Афон, английские субтитры</span></button>
+   </div>
   </div>
  </div>
 </section>
 
-<!-- 5. Под ключ -->
-<section id="podklyuch">
- <div class="in">
-  <p class="nom">Способ 5</p>
-  <h2>Полное сопровождение под ключ</h2>
-  <p>Когда соцсетей мало. Другой масштаб, другие деньги, другая работа.</p>
-  <ul class="spisok">
-   <li>PR</li><li>Выходы в&nbsp;федеральную прессу</li><li>Телевидение</li>
-  </ul>
+<!-- 05 Под ключ -->
+<section class="razdel" id="klyuch" aria-labelledby="klyuch-t">
+ <div class="w">
+  <p class="nom"><b>05</b> Под ключ</p>
+  <h2 id="klyuch-t">Когда соцсетей мало: полное сопровождение под&nbsp;ключ</h2>
+  <p class="lead">Другой масштаб, другие задачи, другая работа.</p>
+  <div class="kartochki">
+   <article><span>01</span><h4>PR</h4></article>
+   <article><span>02</span><h4>Выходы в&nbsp;федеральную прессу</h4></article>
+   <article><span>03</span><h4>Телевидение</h4></article>
+  </div>
   <div class="chestno">
    <p><b>Примеров здесь пока нет.</b> Это направление мы только открываем и&nbsp;не&nbsp;будем показывать чужое за&nbsp;своё.</p>
-   <p>Что нужно именно вам и&nbsp;сколько это стоит - обсудим на&nbsp;созвоне.</p>
+   <p>Что нужно именно вам - обсудим на&nbsp;созвоне.</p>
   </div>
  </div>
 </section>
+</main>
 
-<!-- Концовка -->
-<section class="konec" id="svyaz">
- <div class="in">
-  <h2>Не&nbsp;знаете, какой способ ваш? <span class="akc">Напишите.</span></h2>
-  <p>Созвонимся, посмотрим, что у&nbsp;вас уже есть, и&nbsp;скажем, с&nbsp;чего начать.</p>
+<!-- контакты -->
+<footer class="kontakty" id="svyaz">
+ <div class="w">
+  <p class="nom">Связь</p>
+  <h2>Не&nbsp;знаете, какой способ ваш? <span>Напишите.</span></h2>
+  <p class="lead">Созвонимся, посмотрим, что у&nbsp;вас уже есть, и&nbsp;скажем, с&nbsp;чего начать.</p>
   <div class="avtor">
-   <img src="i/igor.webp" alt="Игорь Ильин">
+   <img src="i/igor.webp" alt="Игорь Ильин" width="72" height="72">
    <div><b>Игорь Ильин</b><span>«Форма.ТТ»</span></div>
   </div>
-  <a class="btn" href="https://t.me/ingvarcrypto" target="_blank" rel="noopener">Написать в&nbsp;Телеграм</a>
-  <p class="pod" style="margin-top:12px">@ingvarcrypto</p>
+  <div class="knopki">
+   <a class="b ak" href="https://t.me/ingvarcrypto" target="_blank" rel="noopener">Написать в&nbsp;Телеграм</a>
+   <a class="b kont" href="https://t.me/ingvarcrypto" target="_blank" rel="noopener">@ingvarcrypto</a>
+  </div>
+  <div class="podval">
+   <p class="marka">Форма<i>.</i>ТТ</p>
+   <nav aria-label="Способы">
+    <a href="#papka">Из папки</a><a href="#rilsy">Рилсы</a><a href="#studiya">Студия</a><a href="#multik">Мультфильмы</a><a href="#klyuch">Под ключ</a>
+   </nav>
+   <p class="meta">Прототип страницы. Ролики - наши работы, показаны как примеры.</p>
+  </div>
  </div>
-</section>
-
-<footer><div class="in">Прототип страницы. Ролики - наши работы, показаны как примеры.</div></footer>
+</footer>
 
 <script>
-document.querySelectorAll('.roliki .rol').forEach(function(r){
-  var v=r.querySelector('video');
-  r.addEventListener('click',function(){
-    if(v.paused){
-      document.querySelectorAll('.roliki video').forEach(function(o){ if(o!==v && !o.paused) o.pause(); });
-      v.play();
-    } else v.pause();
-  });
-  v.addEventListener('play',function(){ r.classList.add('idet'); });
-  v.addEventListener('pause',function(){ r.classList.remove('idet'); });
-  v.addEventListener('ended',function(){ r.classList.remove('idet'); v.load(); });
+function stop(){document.querySelectorAll('video').forEach(function(v){v.pause()})}
+document.querySelectorAll('.ril').forEach(function(k){k.addEventListener('click',function(){
+  if(k.classList.contains('idet'))return;
+  stop();
+  var v=document.createElement('video');v.src=k.dataset.v;v.controls=true;v.playsInline=true;v.setAttribute('playsinline','');v.poster=k.querySelector('img').src;
+  var ob=k.querySelector('.ob');ob.innerHTML='';ob.appendChild(v);k.classList.add('idet');v.play().catch(function(){});
+})});
+var p=document.querySelector('#ekran .pusk');
+p.addEventListener('click',function(){
+  stop();
+  var e=document.getElementById('ekran'),v=document.createElement('video');
+  v.src=p.dataset.v;v.controls=true;v.playsInline=true;v.setAttribute('playsinline','');v.poster=e.querySelector('img').src;
+  e.innerHTML='';e.appendChild(v);v.play().catch(function(){});
 });
+document.addEventListener('play',function(ev){document.querySelectorAll('video').forEach(function(v){if(v!==ev.target)v.pause()})},true);
 </script>
 </body>
 </html>
