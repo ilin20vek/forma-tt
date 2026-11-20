@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<!-- Прототип лендинга агентства «Форма.ТТ», задача 1611, 20.11.2026. Что откуда - README.md рядом. Не боевой сайт. -->
+<title>Форма.ТТ - если тебя нет в сети, тебя нет</title>
+<meta name="description" content="Пять способов быть в соцсетях: монтаж из вашей папки, рилсы из длинных роликов, съёмка на студии, мультфильм про ваше дело, сопровождение под ключ.">
+<style>
+@font-face{font-family:'Sofia Sans';src:url(fonts/sofia-sans-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Sofia Sans';src:url(fonts/sofia-sans-700.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'SSEC';src:url(fonts/sofia-sans-extra-condensed-800.woff2) format('woff2');font-weight:800;font-display:swap}
+/* Цвета - временные, из заготовки КП (tools/kp_shablon). Бренда «Форма.ТТ» ещё нет. */
+:root{--fon:#0f1115;--tekst:#f2efe9;--soft:#b9b4ab;--akcent:#e2b45a;--plashka:#1a1d24;--liniya:#2a2e37}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--fon);color:var(--tekst);font:400 19px/1.5 'Sofia Sans',system-ui,sans-serif}
+a{color:inherit}
+.in{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:72px 0;border-top:1px solid var(--liniya)}
+h1,h2,h3{font-family:SSEC,'Sofia Sans',sans-serif;font-weight:800;line-height:1.02;margin:0 0 20px}
+h1{font-size:76px} h2{font-size:50px} h3{font-size:26px;margin-bottom:8px}
+p{margin:0 0 16px;max-width:38em}
+.akc{color:var(--akcent)}
+.nom{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--akcent);margin:0 0 12px;font-weight:700}
+.pod{font-size:16px;color:var(--soft)}
+.nw{white-space:nowrap}
+
+/* Шапка: имя агентства словом (знака нет) и выход на связь */
+.shapka{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.imya{font-family:SSEC,sans-serif;font-weight:800;font-size:30px;letter-spacing:.01em;text-decoration:none}
+.btn{display:inline-block;background:var(--akcent);color:#15120b;font-weight:700;font-size:18px;text-decoration:none;padding:14px 24px;border-radius:12px}
+.btn.mal{font-size:16px;padding:10px 16px}
+.btn.kont{background:transparent;color:var(--tekst);box-shadow:inset 0 0 0 2px var(--liniya)}
+
+/* Первый экран: слева мысль, справа три готовых ролика - сразу видно, что мы делаем */
+.e0{border-top:0;padding:24px 0 72px}
+.e0 .setka{display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:center}
+.e0 .lid{font-size:22px;max-width:30em}
+.e0 .knopki{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.vitrina{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.vitrina img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:14px;display:block}
+.vitrina img:nth-child(2){transform:translateY(-28px)}
+
+/* Пять способов: оглавление, каждая карточка ведёт к своему блоку */
+.sposoby{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:28px}
+.sposob{background:var(--plashka);border-radius:16px;padding:20px;text-decoration:none;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.sposob:hover{background:#232733}
+.sposob .n{font-family:SSEC,sans-serif;font-weight:800;font-size:40px;line-height:1;color:var(--akcent)}
+.sposob b{font-size:19px;line-height:1.2}
+.sposob span:not(.n){font-size:15px;color:var(--soft)}
+.sposob .skoro,.metka{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--liniya);color:var(--soft);padding:3px 8px;border-radius:6px;align-self:flex-start}
+
+/* Блок способа: что от вас - шаги - примеры */
+.fakty{display:flex;flex-wrap:wrap;gap:10px 28px;margin:4px 0 28px;font-size:17px}
+.fakty div{color:var(--soft)} .fakty b{color:var(--tekst)}
+.shagi{list-style:none;padding:0;margin:0 0 36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;counter-reset:sh}
+.shagi li{counter-increment:sh;background:var(--plashka);border-radius:14px;padding:18px 18px 20px;font-size:17px;line-height:1.35}
+.shagi li::before{content:counter(sh);display:block;font-family:SSEC,sans-serif;font-weight:800;font-size:34px;line-height:1;color:var(--akcent);margin-bottom:10px}
+.shagi li b{display:block;font-size:19px;margin-bottom:4px}
+.razvilka{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.razvilka span{font-size:14px;background:var(--liniya);border-radius:6px;padding:2px 8px}
+
+/* Ролики. Обложка у каждого, нажатие в любое место запускает (как в tools/kp_shablon). */
+.roliki{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.roliki.tri{grid-template-columns:repeat(3,1fr);max-width:840px}
+.roliki.dva{grid-template-columns:repeat(2,1fr);max-width:560px}
+.roliki figure{margin:0}
+.roliki .rol{position:relative;cursor:pointer;border-radius:16px;overflow:hidden;background:#000}
+.roliki video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}
+.roliki .play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(0,0,0,.55);pointer-events:none;transition:opacity .2s}
+.roliki .play::after{content:"";position:absolute;left:26px;top:20px;border-style:solid;border-width:12px 0 12px 19px;border-color:transparent transparent transparent #fff}
+.roliki .rol.idet .play{opacity:0}
+.roliki figcaption{font-size:15px;color:var(--soft);margin-top:10px;line-height:1.35}
+.roliki figcaption b{display:block;color:var(--tekst);font-size:17px;margin-bottom:2px}
+.zaglushka{aspect-ratio:9/16;border-radius:16px;border:2px dashed var(--liniya);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:var(--soft);font-size:16px}
+
+/* Под ключ: примеров нет - честная плашка вместо них */
+.chestno{background:var(--plashka);border-radius:18px;padding:28px;max-width:760px}
+.chestno p:last-child{margin:0}
+.spisok{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-wrap:wrap;gap:10px}
+.spisok li{background:var(--plashka);border-radius:12px;padding:12px 18px;font-size:18px;font-weight:700}
+
+/* Концовка */
+.konec h2{max-width:16em}
+.avtor{display:flex;align-items:center;gap:16px;margin:28px 0}
+.avtor img{width:84px;height:84px;border-radius:50%;object-fit:cover}
+.avtor b{display:block;font-size:19px}
+.avtor span{font-size:15px;color:var(--soft)}
+footer{padding:28px 0 40px;font-size:14px;color:var(--soft);border-top:1px solid var(--liniya)}
+
+@media (max-width:1000px){
+ .sposoby{grid-template-columns:repeat(2,1fr)}
+ .sposob:last-child{grid-column:1/-1}
+ .roliki{grid-template-columns:repeat(2,1fr)}
+ .roliki.tri{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:820px){
+ .e0 .setka{grid-template-columns:1fr;gap:36px}
+ .vitrina img:nth-child(2){transform:none}
+ h1{font-size:58px}
+}
+@media (max-width:640px){
+ body{font-size:17px}
+ .in{padding:0 18px}
+ h1{font-size:46px} h2{font-size:36px} h3{font-size:23px}
+ section{padding:52px 0}
+ .e0{padding:8px 0 52px}
+ .e0 .lid{font-size:19px}
+ .imya{font-size:26px}
+ .sposoby{grid-template-columns:1fr;gap:10px}
+ .sposob{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:16px 18px}
+ .sposob .n{font-size:30px;min-width:22px}
+ .sposob b{flex:1}
+ .sposob span:not(.n){flex-basis:100%;padding-left:34px}
+ .sposob .skoro{margin-left:34px}
+ .shagi{grid-template-columns:1fr;gap:10px}
+ .shagi li{display:grid;grid-template-columns:34px 1fr;padding:16px}
+ .shagi li::before{font-size:28px;margin:0}
+ .roliki,.roliki.tri{grid-template-columns:repeat(2,1fr);gap:12px}
+ .roliki figcaption b{font-size:16px}
+ .btn{font-size:17px}
+}
+</style>
+</head>
+<body>
+
+<!-- 0. Первый экран -->
+<section class="e0">
+ <div class="in">
+  <div class="shapka">
+   <a class="imya" href="#">Форма.ТТ</a>
+   <a class="btn mal kont" href="https://t.me/ingvarcrypto" target="_blank" rel="noopener">Написать</a>
+  </div>
+  <div class="setka">
+   <div>
+    <h1>Если тебя нет в&nbsp;сети, <span class="akc">тебя нет</span></h1>
+    <p class="lid">Клиенты сегодня приходят из&nbsp;соцсетей. Почти все. Либо вас там знают, либо бизнес придётся закрывать.</p>
+    <p class="lid">«Форма.ТТ» делает так, чтобы вы были в&nbsp;соцсетях эффектно и&nbsp;с&nbsp;толком. Способов пять, у&nbsp;каждого свои примеры.</p>
+    <div class="knopki">
+     <a class="btn" href="#sposoby">Выбрать способ</a>
+     <a class="btn kont" href="https://t.me/ingvarcrypto" target="_blank" rel="noopener">Написать в&nbsp;Телеграм</a>
+    </div>
+   </div>
+   <div class="vitrina" aria-hidden="true">
+    <img src="https://ilin20vek.github.io/uskov-podarok/o/uskov-n06-neyronka-na-sobesedovanii.jpg" alt="">
+    <img src="https://ilin20vek.github.io/bobrov-rilsy/o/n20-proizvesti-legche-chem-prodat.jpg" alt="">
+    <img src="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/o/mihail-n01-krest-skripit-no-neset.jpg" alt="">
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- Оглавление: пять способов -->
+<section id="sposoby">
+ <div class="in">
+  <p class="nom">Пять способов</p>
+  <h2>Выберите, с&nbsp;чего начать</h2>
+  <p>Начать можно с&nbsp;того, что у&nbsp;вас уже есть. Нажмите на&nbsp;способ - покажем, как он работает и&nbsp;что уже сделано.</p>
+  <div class="sposoby">
+   <a class="sposob" href="#papka"><span class="n">1</span><b>Монтаж из&nbsp;вашей папки</b><span>Есть отснятое - присылаете папку</span></a>
+   <a class="sposob" href="#rilsy"><span class="n">2</span><b>Рилсы из&nbsp;длинных роликов</b><span>Есть выпуски - присылаете ссылку</span></a>
+   <a class="sposob" href="#studiya"><span class="n">3</span><b>Съёмка на&nbsp;студии</b><span>Нет ничего - приезжаете к&nbsp;нам</span></a>
+   <a class="sposob" href="#multik"><span class="n">4</span><b>Мультфильм про ваше дело</b><span>Рассказываете о&nbsp;производстве</span></a>
+   <a class="sposob" href="#podklyuch"><span class="n">5</span><b>Под ключ</b><span>Пресса, телевидение, всё сразу</span></a>
+  </div>
+ </div>
+</section>
+
+<!-- 1. Монтаж из папки -->
+<section id="papka">
+ <div class="in">
+  <p class="nom">Способ 1</p>
+  <h2>Монтаж из&nbsp;вашей папки</h2>
+  <p>У&nbsp;вас уже есть отснятое: с&nbsp;телефона, с&nbsp;мероприятий, со&nbsp;старых съёмок. Лежит мёртвым грузом. Присылаете огромную папку или привозите диск - мы делаем из&nbsp;неё нормальные ролики.</p>
+  <div class="fakty">
+   <div>От вас: <b>папка с&nbsp;материалом</b></div>
+   <div>От нас: <b>монтаж, титры, обложки</b></div>
+   <div>Цена: <b>обсудим на&nbsp;созвоне</b></div>
+  </div>
+  <ol class="shagi">
+   <li><div><b>Присылаете папку</b>Ссылкой на&nbsp;облако или привозите диск.</div></li>
+   <li><div><b>Монтируем</b>Отбираем живые моменты и&nbsp;собираем первые ролики.</div></li>
+   <li><div><b>Вы вносите правки</b>Смотрите и&nbsp;говорите, что поменять.</div></li>
+   <li><div><b>Решаем, чего не&nbsp;хватает</b>Иногда этого достаточно, иногда нет.<div class="razvilka"><span>доснять</span><span>дорисовать</span><span>домонтировать</span></div></div></li>
+   <li><div><b>Отдаём готовое</b>Выкладываете у&nbsp;себя.</div></li>
+  </ol>
+  <h3>Пример: отец Михаил, беседа в&nbsp;зале</h3>
+  <p class="pod">Сорок минут беседы с&nbsp;прихожанами записали одним куском, горизонтально, без студии. Из&nbsp;этой записи - вертикальные короткие ролики.</p>
+  <div class="roliki tri">
+   <figure><div class="rol"><video src="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/v/mihail-n01-krest-skripit-no-neset.mp4" poster="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/o/mihail-n01-krest-skripit-no-neset.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Крест скрипит, но несёт</b>Отец Михаил, беседа в&nbsp;зале</figcaption></figure>
+   <figure><div class="rol"><video src="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/v/mihail-n02-avraam-i-syn.mp4" poster="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/o/mihail-n02-avraam-i-syn.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Зачем Бог испытал Авраама</b>Отец Михаил, беседа в&nbsp;зале</figcaption></figure>
+   <figure><div class="rol"><video src="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/v/mihail-n09-kamen-kotoryy-bog-ne-podnimet.mp4" poster="https://ilin20vek.github.io/otec-mihail/ceh-k7p3/o/mihail-n09-kamen-kotoryy-bog-ne-podnimet.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Камень, который Бог не&nbsp;поднимет</b>Отец Михаил, беседа в&nbsp;зале</figcaption></figure>
+  </div>
+ </div>
+</section>
+
+<!-- 2. Рилсы из длинных роликов -->
+<section id="rilsy">
+ <div class="in">
+  <p class="nom">Способ 2</p>
+  <h2>Рилсы из&nbsp;длинных роликов</h2>
+  <p>У&nbsp;вас есть длинные выпуски, интервью, подкасты. А&nbsp;короткого формата нет - и&nbsp;новые люди вас не&nbsp;находят. Присылаете ссылку, дальше всё делаем сами.</p>
+  <div class="fakty">
+   <div>От вас: <b>ссылка на&nbsp;выпуск</b></div>
+   <div>От нас: <b>всё остальное</b></div>
+   <div>Цена: <b>обсудим на&nbsp;созвоне</b></div>
+  </div>
+  <ol class="shagi">
+   <li><div><b>Присылаете ссылку</b>На&nbsp;YouTube, ВК, куда угодно.</div></li>
+   <li><div><b>Находим сильные места</b>Мысли, которые цепляют без начала и&nbsp;конца выпуска.</div></li>
+   <li><div><b>Монтируем</b>Вертикальный кадр, титры, обложка, описание.</div></li>
+   <li><div><b>Отдаём готовые рилсы</b>Смотрите, правите, выкладываете.</div></li>
+  </ol>
+  <h3>Примеры: из&nbsp;интервью и&nbsp;подкастов</h3>
+  <div class="roliki">
+   <figure><div class="rol"><video src="https://ilin20vek.github.io/uskov-podarok/v/uskov-n06-neyronka-na-sobesedovanii.mp4" poster="https://ilin20vek.github.io/uskov-podarok/o/uskov-n06-neyronka-na-sobesedovanii.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Кандидата на&nbsp;собеседовании поймали на&nbsp;нейросети</b>Юрий Усков, iSpring - из&nbsp;интервью</figcaption></figure>
+   <figure><div class="rol"><video src="https://ilin20vek.github.io/bobrov-rilsy/v/n20-proizvesti-legche-chem-prodat.mp4" poster="https://ilin20vek.github.io/bobrov-rilsy/o/n20-proizvesti-legche-chem-prodat.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Почему хороший товар не&nbsp;продаётся сам</b>Из&nbsp;подкаста Дмитрия Боброва</figcaption></figure>
+   <figure><div class="rol"><video src="https://ilin20vek.github.io/bobrov-rilsy/v/n21-sklad-sgorel.mp4" poster="https://ilin20vek.github.io/bobrov-rilsy/o/n21-sklad-sgorel.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Склад сгорел. А&nbsp;дальше?</b>Из&nbsp;подкаста Дмитрия Боброва</figcaption></figure>
+   <figure><div class="rol"><video src="https://ilin20vek.github.io/stoglav-rilsy/v/stoglav-n12-rus-stoit-vopreki.mp4" poster="https://ilin20vek.github.io/stoglav-rilsy/o/stoglav-n12-rus-stoit-vopreki.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Русь стоит вопреки</b>Культурный центр «Стоглав» - из&nbsp;выпуска «Культурный код»</figcaption></figure>
+  </div>
+ </div>
+</section>
+
+<!-- 3. Студия -->
+<section id="studiya">
+ <div class="in">
+  <p class="nom">Способ 3</p>
+  <h2>Съёмка на&nbsp;студии</h2>
+  <p>Снимать нечего и&nbsp;некому - приезжайте к&nbsp;нам. Свет, звук, камера, цвет - наша забота. Вы говорите о&nbsp;своём деле, мы снимаем и&nbsp;упаковываем.</p>
+  <div class="fakty">
+   <div>От вас: <b>приехать и&nbsp;говорить</b></div>
+   <div>От нас: <b>съёмка, монтаж, цвет, обложки</b></div>
+   <div>Цена: <b>обсудим на&nbsp;созвоне</b></div>
+  </div>
+  <ol class="shagi">
+   <li><div><b>Договариваемся о&nbsp;темах</b>О&nbsp;чём вам есть что сказать.</div></li>
+   <li><div><b>Приезжаете на&nbsp;студию</b>Снимаем разговор на&nbsp;хорошую камеру.</div></li>
+   <li><div><b>Монтируем и&nbsp;доводим</b>Цвет, звук, титры - как в&nbsp;кино, а&nbsp;не&nbsp;как с&nbsp;телефона.</div></li>
+   <li><div><b>Отдаём ролики</b>С&nbsp;обложками и&nbsp;описаниями.</div></li>
+  </ol>
+  <p><span class="metka">Скоро</span>&nbsp; Выездная съёмка - приедем к&nbsp;вам на&nbsp;предприятие.</p>
+  <h3>Примеры: снято на&nbsp;нашей студии</h3>
+  <div class="roliki" id="roliki-studii">
+   <figure><div class="rol"><video src="v/studiya-igor-01a.mp4" poster="o/studiya-igor-01a.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Ты не&nbsp;крутой - ты обманутый человек</b>Игорь Ильин, студия</figcaption></figure>
+   <figure><div class="rol"><video src="v/studiya-mihail-st-01.mp4" poster="o/studiya-mihail-st-01.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Куда я&nbsp;пошёл?</b>Отец Михаил Дочия, студия</figcaption></figure>
+   <figure><div class="rol"><video src="v/studiya-mihail-st-2a.mp4" poster="o/studiya-mihail-st-2a.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Герой или подлец</b>Отец Михаил Дочия, студия</figcaption></figure>
+   <figure><div class="rol"><video src="v/studiya-chuharkin-p01.mp4" poster="o/studiya-chuharkin-p01.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>О&nbsp;соборной молитве</b>Всеволод Чухаркин, «Стоглав», студия</figcaption></figure>
+  </div>
+ </div>
+</section>
+
+<!-- 4. Мультфильм -->
+<section id="multik">
+ <div class="in">
+  <p class="nom">Способ 4</p>
+  <h2>Мультфильм про ваше дело</h2>
+  <p>Про производство в&nbsp;лоб никто смотреть не&nbsp;будет. Мультфильм начинает с&nbsp;темы, которая цепляет всех, и&nbsp;через неё выводит на&nbsp;вашу компанию. Человек смотрит, подписывается, а&nbsp;потом покупает.</p>
+  <div class="fakty">
+   <div>От вас: <b>рассказать о&nbsp;производстве</b></div>
+   <div>От нас: <b>сценарий, рисунок, голос, монтаж</b></div>
+   <div>Цена: <b>обсудим на&nbsp;созвоне</b></div>
+  </div>
+  <h3>Пока это пилоты</h3>
+  <p class="pod">Так выглядит стиль. Мультфильма про производство клиента ещё нет - первый может стать вашим.</p>
+  <div class="roliki dva">
+   <figure><div class="rol"><video src="v/multik-nas-obmanuli-pilot.mp4" poster="o/multik-nas-obmanuli-pilot.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>«Нас обманули»</b>Пилот. Про семью и&nbsp;детей, голос Игоря Ильина</figcaption></figure>
+   <figure><div class="rol"><video src="https://ilin20vek.github.io/afon-paisiy/v/39-pilot.mp4" poster="o/afon-39-pilot.jpg" playsinline preload="none"></video><span class="play"></span></div><figcaption><b>Старец Паисий</b>Пилот для проекта про Афон, английские субтитры</figcaption></figure>
+  </div>
+ </div>
+</section>
+
+<!-- 5. Под ключ -->
+<section id="podklyuch">
+ <div class="in">
+  <p class="nom">Способ 5</p>
+  <h2>Полное сопровождение под ключ</h2>
+  <p>Когда соцсетей мало. Другой масштаб, другие деньги, другая работа.</p>
+  <ul class="spisok">
+   <li>PR</li><li>Выходы в&nbsp;федеральную прессу</li><li>Телевидение</li>
+  </ul>
+  <div class="chestno">
+   <p><b>Примеров здесь пока нет.</b> Это направление мы только открываем и&nbsp;не&nbsp;будем показывать чужое за&nbsp;своё.</p>
+   <p>Что нужно именно вам и&nbsp;сколько это стоит - обсудим на&nbsp;созвоне.</p>
+  </div>
+ </div>
+</section>
+
+<!-- Концовка -->
+<section class="konec" id="svyaz">
+ <div class="in">
+  <h2>Не&nbsp;знаете, какой способ ваш? <span class="akc">Напишите.</span></h2>
+  <p>Созвонимся, посмотрим, что у&nbsp;вас уже есть, и&nbsp;скажем, с&nbsp;чего начать.</p>
+  <div class="avtor">
+   <img src="i/igor.webp" alt="Игорь Ильин">
+   <div><b>Игорь Ильин</b><span>«Форма.ТТ»</span></div>
+  </div>
+  <a class="btn" href="https://t.me/ingvarcrypto" target="_blank" rel="noopener">Написать в&nbsp;Телеграм</a>
+  <p class="pod" style="margin-top:12px">@ingvarcrypto</p>
+ </div>
+</section>
+
+<footer><div class="in">Прототип страницы. Ролики - наши работы, показаны как примеры.</div></footer>
+
+<script>
+document.querySelectorAll('.roliki .rol').forEach(function(r){
+  var v=r.querySelector('video');
+  r.addEventListener('click',function(){
+    if(v.paused){
+      document.querySelectorAll('.roliki video').forEach(function(o){ if(o!==v && !o.paused) o.pause(); });
+      v.play();
+    } else v.pause();
+  });
+  v.addEventListener('play',function(){ r.classList.add('idet'); });
+  v.addEventListener('pause',function(){ r.classList.remove('idet'); });
+  v.addEventListener('ended',function(){ r.classList.remove('idet'); v.load(); });
+});
+</script>
+</body>
+</html>
